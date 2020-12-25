@@ -1,0 +1,139 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: WebScraper
+Transform: AWS::Serverless-2016-10-31
+Parameters:
+  StackName:
+    Type: String
+  ApiDomainName:
+    Type: String
+  OpenApiBucket:
+    Type: String
+    Description: Name bucket which holds temp files
+    ConstraintDescription: Must contain only alphanumeric characters [a-zA-Z0-9].
+  ScraperPostArn:
+    Type: String
+Globals:
+  Function:
+    Handler: index.handler
+    Runtime: nodejs12.x
+    Timeout: 60
+    MemorySize: 128
+Resources:
+  APIGatewayExecuteRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - apigateway.amazonaws.com
+            - lambda.amazonaws.com
+            - edgelambda.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+      - PolicyName: ApiScraperGatewayExecutePolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - lambda:InvokeFunction
+            - lambda:PublishVersion
+            - lambda:*
+            - s3:*
+            - logs:*
+            Resource:
+            - Fn::Sub: ${ScraperPostArn}
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+  LambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - apigateway.amazonaws.com
+            - lambda.amazonaws.com
+            - edgelambda.amazonaws.com
+          Action: sts:AssumeRole
+      Policies:
+      - PolicyName: ScraperGatewayExecutePolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - lambda:InvokeFunction
+            - lambda:PublishVersion
+            - lambda:*
+            - s3:*
+            - logs:*
+            Resource:
+            - Fn::Sub: ${ScraperPostArn}
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+  ScraperPost:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: ${StackName}
+      CodeUri: s3://web-scraper-ap-south-1/0209696dc0dd91a7f4580a1a9cfa8054
+      Description: ScraperPost
+      Role:
+        Fn::GetAtt:
+        - LambdaRole
+        - Arn
+      Timeout: 30
+      Tags:
+        System:
+          Ref: AWS::StackName
+  ScraperAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name:
+        Fn::Sub: ${StackName}-api
+      StageName: dev
+      DefinitionBody:
+        Fn::Transform:
+          Name: AWS::Include
+          Parameters:
+            Location:
+              Fn::Sub: s3://${OpenApiBucket}/openapi.yaml
+  ApiGatewayBasePathMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      BasePath: scrape
+      DomainName:
+        Fn::Sub: ${ApiDomainName}
+      RestApiId:
+        Ref: ScraperAPI
+      Stage:
+        Ref: ScraperAPI.Stage
+  usagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      ApiStages:
+      - ApiId:
+          Ref: ScraperAPI
+        Stage:
+          Ref: ScraperAPI.Stage
+      Description: Badges usage plan
+      UsagePlanName:
+        Fn::Sub: ${StackName}-usage-plan
+Outputs:
+  ScraperApi:
+    Value:
+      Fn::Join:
+      - ''
+      - - https://
+        - Ref: ScraperAPI
+        - .execute-api.
+        - Ref: AWS::Region
+        - .
+        - Ref: AWS::URLSuffix
+        - /dev
