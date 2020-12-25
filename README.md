@@ -2,7 +2,7 @@
 
 A Web scraping API which accepts a URL
 
-API Endpoint 👉 https://api.suchitrotti.com/scrape/
+API Endpoint 👉 POST  https://api.suchitrotti.com/scrape/
 
 Body
 
