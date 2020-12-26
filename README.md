@@ -1,23 +1,25 @@
 # Web Scraping
 
 
-## Web Application using ReactJS
+## Web Application using ReactJS 🚀🚀🚀
 
 ### Demo Link's
 
-- Web Application 👉 [https://heuristic-lamport-d15a29.netlify.app/](https://heuristic-lamport-d15a29.netlify.app/)
+- 👉 [Web Application](https://heuristic-lamport-d15a29.netlify.app/)
 
-- Unit Test Reports 👉 [https://heuristic-lamport-d15a29.netlify.app/lcov-report/index.html](https://heuristic-lamport-d15a29.netlify.app/lcov-report/index.html)
+- 👉 [Unit Test Reports](https://heuristic-lamport-d15a29.netlify.app/lcov-report/index.html)
 
-- API Test Reports 👉 [https://heuristic-lamport-d15a29.netlify.app/api-report.html](https://heuristic-lamport-d15a29.netlify.app/api-report.html)
+- 👉 [API Test Reports](https://heuristic-lamport-d15a29.netlify.app/api-report.html)
 
 
 ## API
 
 A Web scraping API which accepts a URL
 
-API Endpoint 👉 POST  https://api.suchitrotti.com/scrape/
-
+🔥 API Endpoint  
+```https
+POST  https://api.suchitrotti.com/scrape/
+```
 Body
 
 ```json
