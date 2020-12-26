@@ -32,10 +32,6 @@ let webScrape = async (event, context) => {
         metadata.description = ogDescription;
       }
 
-      if (ogKeywords) {
-        metadata.keywords = ogKeywords;
-      }
-
       if (ogImages && ogImages.length) {
         metadata.images = [];
         for (let i = 0; i < ogImages.length; i++) {
@@ -62,7 +58,7 @@ let webScrape = async (event, context) => {
       return resolve(prepareResponse(200, metadata));
     } catch (error) {
       console.error("Error: ", error);
-      return resolve(prepareResponse(500));
+      return resolve(prepareResponse(500, "INTERNAL SERVER ERROR"));
     }
   });
 };
@@ -75,7 +71,7 @@ function prepareResponse(statusCode, message) {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'POST,GET,OPTIONS'
         },
-        "body": JSON.stringify(message ? message : {}),
+        "body": JSON.stringify(message),
         "isBase64Encoded": false,
     };
 }

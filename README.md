@@ -1,5 +1,19 @@
 # Web Scraping
 
+
+## Web Application using ReactJS
+
+### Demo Link's
+
+- Web Application 👉 [https://heuristic-lamport-d15a29.netlify.app/](https://heuristic-lamport-d15a29.netlify.app/)
+
+- Unit Test Reports 👉 [https://heuristic-lamport-d15a29.netlify.app/lcov-report/index.html](https://heuristic-lamport-d15a29.netlify.app/lcov-report/index.html)
+
+- API Test Reports 👉 [https://heuristic-lamport-d15a29.netlify.app/api-report.html](https://heuristic-lamport-d15a29.netlify.app/api-report.html)
+
+
+## API
+
 A Web scraping API which accepts a URL
 
 API Endpoint 👉 POST  https://api.suchitrotti.com/scrape/
@@ -33,3 +47,32 @@ Response
     "ogurl": "https://github.com/isuchit"
 }
 ```
+
+
+## Deployment 
+
+### Scripted
+- All AWS recources are created using cloudformation scripts is [here](/cloudformation/index.yaml).
+
+- Lambda function is in NodeJS is [here](functions/scrape-metadata/index.js).
+
+- Unit Testing for lambda function using Chai-Mocha is [here](functions/scrape-metadata/test/index.test.js).
+
+- API is written in OpenAPI is [here](api/openapi.yml).
+
+- Shell script for deployment is [here](tilities/deploy-infra.sh)
+
+
+## Screenshots
+
+- **Home**
+
+  ![Home](/screenshots/Home.png)
+  
+- **Unit Test NYC Report**
+
+  ![NYC](/screenshots/NYC.png)
+  
+- **API Test Newman Report**
+
+  ![API](/screenshots/API.png)

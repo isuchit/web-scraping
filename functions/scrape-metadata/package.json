@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "coverage": "nyc mocha --no-timeouts ./test/*.test.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ut": "nyc --reporter=lcov mocha --recursive ./test/*.test.js --reporter mocha-junit-reporter"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,10 @@
   "homepage": "https://github.com/isuchit/web-scraping#readme",
   "dependencies": {
     "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.5"
+    "chai": "^4.2.0",
+    "cheerio": "^1.0.0-rc.5",
+    "mocha": "^8.2.1",
+    "mocha-junit-reporter": "^2.0.0",
+    "nyc": "^15.1.0"
   }
 }

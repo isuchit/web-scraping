@@ -82,7 +82,7 @@ Resources:
     Properties:
       FunctionName:
         Fn::Sub: ${StackName}
-      CodeUri: s3://web-scraper-ap-south-1/0209696dc0dd91a7f4580a1a9cfa8054
+      CodeUri: s3://web-scraper-ap-south-1/52ccd67ebd5dbc2bad9b6df368b48cae
       Description: ScraperPost
       Role:
         Fn::GetAtt:

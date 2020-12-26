@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "2cc53d01-cf8d-47ae-a572-641e552d28b2",
+		"name": "Scraper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Scrape API with SuccessData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94e8c498-1f8e-4b17-b83b-de8056765fec",
+						"exec": [
+							"pm.test(\"Response Check with statusCode 200\", function () { \r",
+							"    pm.response.to.have.status(200);\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should have scraped data\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql({\r",
+							"    \"title\": \"Google\",\r",
+							"    \"images\": [\r",
+							"        \"/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png\"\r",
+							"    ]\r",
+							"});\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"url\":\"https://google.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{API_BASE}}/scrape/",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE}}"
+					],
+					"path": [
+						"scrape",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Scrape API with ErrorData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03dc3d3a-52d0-48e3-93df-32cecbfc1a8e",
+						"exec": [
+							"pm.test(\"Response Check with statusCode 500\", function () { \r",
+							"    pm.response.to.have.status(500);\r",
+							"     pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should have null json\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.eql('INTERNAL SERVER ERROR');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{API_BASE}}/scrape/",
+					"protocol": "https",
+					"host": [
+						"{{API_BASE}}"
+					],
+					"path": [
+						"scrape",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

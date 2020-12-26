@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="2.0320" tests="2" failures="1">
+  <testsuite name="Root Suite" timestamp="2020-12-26T04:32:56" tests="0" time="0.0000" failures="0">
+  </testsuite>
+  <testsuite name="/ scraper / 1 /" timestamp="2020-12-26T04:32:56" tests="2" file="D:\Personal\project\scraper\functions\scrape-metadata\test\index.test.js" time="2.0320" failures="1">
+    <testcase name="/ scraper / 1 / 1.1 / should scrape web-page information" time="2.0080" classname="1.1 / should scrape web-page information">
+      <failure message="Timeout of 2000ms exceeded. For async tests and hooks, ensure &quot;done()&quot; is called; if returning a Promise, ensure it resolves. (D:\Personal\project\scraper\functions\scrape-metadata\test\index.test.js)" type="Error"><![CDATA[Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (D:\Personal\project\scraper\functions\scrape-metadata\test\index.test.js)
+    at listOnTimeout (internal/timers.js:554:17)
+    at processTimers (internal/timers.js:497:7)]]></failure>
+    </testcase>
+    <testcase name="/ scraper / 1 / 1.2 / should return error message" time="0.0240" classname="1.2 / should return error message">
+    </testcase>
+  </testsuite>
+</testsuites>
