@@ -53,6 +53,10 @@ Response
 
 ## Deployment 
 
+- Deploy by running [setup.sh](/setup.sh)
+
+- ![CI/CD](/screenshots/CI-CD.png)
+
 ### Scripted
 - All AWS recources are created using cloudformation scripts is [here](/cloudformation/index.yaml).
 
